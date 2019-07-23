@@ -89,13 +89,6 @@ public class ContactsAdapter extends
                 Contact contact = mContacts.get(position);
                 // We can access the data within the views
                 Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
-                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
             }
         }
     }
