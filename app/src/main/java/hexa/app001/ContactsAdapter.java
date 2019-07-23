@@ -1,6 +1,7 @@
 package hexa.app001;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class ContactsAdapter extends
 
 
     private List<Contact> mContacts;
+    private String ID = "id_tag";
 
     // Pass in the contact array into the constructor
     public ContactsAdapter(List<Contact> contacts) {
@@ -89,6 +91,9 @@ public class ContactsAdapter extends
                 Contact contact = mContacts.get(position);
                 // We can access the data within the views
                 Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ViewActivity.class);
+                intent.putExtra(ID, position);
+                context.startActivity(intent);
             }
         }
     }

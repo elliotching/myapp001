@@ -31,6 +31,5 @@ public class RecyclerViewActivity extends AppCompatActivity {
         // Set layout manager to position the items
         rvContacts.setLayoutManager(new LinearLayoutManager(this));
         // That's all!
-
     }
 }
