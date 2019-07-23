@@ -81,7 +81,7 @@ public class ContactsAdapter extends
             // Attach a click listener to the entire row view
             itemView.setOnClickListener(this);
         }
-        // Handles the row being being clicked
+        // Handles the row being being clickeda
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
@@ -89,6 +89,13 @@ public class ContactsAdapter extends
                 Contact contact = mContacts.get(position);
                 // We can access the data within the views
                 Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
+                Toast.makeText(context, nameTextView.getText(), Toast.LENGTH_SHORT).cancel();
             }
         }
     }
