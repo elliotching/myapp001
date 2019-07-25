@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,20 +46,15 @@ public class ContactsAdapter extends
         // Get the data model based on position
         Contact contact = mContacts.get(position);
 
-        // Set item views based on your views and data model
         TextView titleTextView = holder.titleTextView;
         ImageView img = holder.imgView;
         TextView subtitleTextView = holder.subtitleTextView;
         TextView descriptionTextView = holder.descriptionTextView;
 
-//        Button button = holder.messageButton;
-//        button.setText(contact.isOnline() ? "Message" : "Offline");
-//        button.setEnabled(contact.isOnline());
         titleTextView.setText(contact.getTitle());
         img.setImageResource(contact.getImage());
         subtitleTextView.setText(contact.getSubtitle());
         descriptionTextView.setText(contact.getDesc());
-
     }
 
     @Override
@@ -68,33 +62,23 @@ public class ContactsAdapter extends
         return mContacts.size();
     }
 
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
         public TextView titleTextView;
-        public Button messageButton;
         public ImageView imgView;
         public TextView subtitleTextView;
         public TextView descriptionTextView;
         private Context context;
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
         public ViewHolder(Context context, View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
             super(itemView);
 
             titleTextView = itemView.findViewById(R.id.contact_title);
-            messageButton = itemView.findViewById(R.id.message_button);
             imgView = itemView.findViewById(R.id.image_view);
             subtitleTextView = itemView.findViewById(R.id.contact_subtitle);
             descriptionTextView = itemView.findViewById(R.id.contact_description);
-            // Store the context
+
             this.context = context;
-            // Attach a click listener to the entire row view
+
             itemView.setOnClickListener(this);
         }
         // Handles the row being being clickeda
