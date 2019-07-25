@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="#0000ff"
+                    android:textColor="@color/blue"
                     />
 
 
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:textColor="#ff0000"
+                    android:textColor="@color/red"
                     />
 
                 <Button
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="#ff8800"
+            android:textColor="@color/orange"
             android:maxLines="2"
             android:ellipsize="end"
             />

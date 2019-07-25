@@ -35,7 +35,7 @@ public class ContactsAdapter extends
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.item_contact, parent, false);
+        View contactView = inflater.inflate(R.layout.item_card_view, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(context, contactView);
@@ -49,15 +49,16 @@ public class ContactsAdapter extends
 
         // Set item views based on your views and data model
         TextView titleTextView = holder.titleTextView;
-        titleTextView.setText(contact.getTitle());
-        Button button = holder.messageButton;
-        button.setText(contact.isOnline() ? "Message" : "Offline");
-        button.setEnabled(contact.isOnline());
         ImageView img = holder.imgView;
-        img.setImageResource(contact.getImage());
         TextView subtitleTextView = holder.subtitleTextView;
-        subtitleTextView.setText(contact.getSubtitle());
         TextView descriptionTextView = holder.descriptionTextView;
+
+//        Button button = holder.messageButton;
+//        button.setText(contact.isOnline() ? "Message" : "Offline");
+//        button.setEnabled(contact.isOnline());
+        titleTextView.setText(contact.getTitle());
+        img.setImageResource(contact.getImage());
+        subtitleTextView.setText(contact.getSubtitle());
         descriptionTextView.setText(contact.getDesc());
 
     }

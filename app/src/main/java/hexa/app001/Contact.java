@@ -7,14 +7,14 @@ import android.os.Parcelable;
 public class Contact implements Parcelable {
     private Context context;
     private String mTitle;
-    private boolean mOnline;
+//    private boolean mOnline;
     private int mImage;
     private String mSubtitle;
     private String mDesc;
 
     public Contact(String title, boolean online, int image, String subtitle, String description) {
         mTitle = title;
-        mOnline = online;
+//        mOnline = online;
         mImage = image;
         mSubtitle = subtitle;
         mDesc = description;
@@ -36,9 +36,9 @@ public class Contact implements Parcelable {
         return mTitle;
     }
 
-    public boolean isOnline() {
-        return mOnline;
-    }
+//    public boolean isOnline() {
+//        return mOnline;
+//    }
 
     public int getImage() {
         return mImage;
