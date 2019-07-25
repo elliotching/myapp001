@@ -44,10 +44,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
         int lastContactId = 0;
         String description = context.getResources().getString(R.string.description);
         for (int i = 1; i <= numContacts; i++) {
-//            int id = ++lastContactId;
-            int id = lastContactId;
+            int id = i;
             contacts.add(new Contact("Title " + id, i <= numContacts / 2, getImage(id), "Subtitle "+id+"\nAnother line\nYet another line", description));
-            lastContactId++;
         }
 
         return contacts;

@@ -87,7 +87,6 @@ public class ContactsAdapter extends
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 Contact contact = mContacts.get(position);
-                // We can access the data within the views
                 Toast.makeText(context, titleTextView.getText(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ViewActivity.class);
                 intent.putExtra(RecyclerViewActivity.ID, contact);
