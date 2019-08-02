@@ -4,20 +4,22 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Contact implements Parcelable {
-    private Context context;
+import androidx.databinding.ObservableField;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Contact extends RealmObject implements Parcelable {
+//    private Context context;
+    @PrimaryKey
+    private long id;
     private String mTitle;
-//    private boolean mOnline;
-    private int mImage;
+    private String mImage;
     private String mSubtitle;
     private String mDesc;
 
-    public Contact(String title, boolean online, int image, String subtitle, String description) {
-        mTitle = title;
-//        mOnline = online;
-        mImage = image;
-        mSubtitle = subtitle;
-        mDesc = description;
+    public Contact(){
+        super();
     }
 
     public static final Creator<Contact> CREATOR = new Creator<Contact>() {
@@ -32,15 +34,32 @@ public class Contact implements Parcelable {
         }
     };
 
+    public long getId() {
+        return id;
+    }
+
+    public void setTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
+
+    public void setImage(String imageURL) {
+        this.mImage = imageURL;
+    }
+
+    public void setSubtitle(String mSubtitle) {
+        this.mSubtitle = mSubtitle;
+    }
+
+    public void setDesc(String mDesc) {
+        this.mDesc = mDesc;
+    }
+
     public String getTitle() {
         return mTitle;
     }
 
-//    public boolean isOnline() {
-//        return mOnline;
-//    }
 
-    public int getImage() {
+    public String getImage() {
         return mImage;
     }
 
@@ -55,8 +74,9 @@ public class Contact implements Parcelable {
 
     // In constructor you will read the variables from Parcel. Make sure to read them in the same sequence in which you have written them in Parcel.
     Contact(Parcel in) {
+        this.id = in.readLong();
         this.mTitle = in.readString();
-        this.mImage = in.readInt();
+        this.mImage = in.readString();
         this.mSubtitle = in.readString();
         this.mDesc = in.readString();
     }
@@ -69,10 +89,14 @@ public class Contact implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         // Write data in any order
+        parcel.writeLong(this.id);
         parcel.writeString(this.getTitle());
-        parcel.writeInt(this.getImage());
+        parcel.writeString(this.getImage());
         parcel.writeString(this.getSubtitle());
         parcel.writeString(this.getDesc());
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }

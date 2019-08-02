@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="edit_text_margin">
+        <item name="android:layout_marginLeft">@dimen/margin_size</item>
+        <item name="android:layout_marginRight">@dimen/margin_size</item>
+        <item name="android:layout_marginTop">@dimen/margin_topbottom_size</item>
+        <item name="android:layout_marginBottom">@dimen/margin_topbottom_size</item>
+    </style>
+
+    <style name="label_w_edittext_label_margin_n_textsize">
+        <item name="android:layout_marginLeft">@dimen/margin_size</item>
+        <item name="android:layout_marginRight">@dimen/margin_size</item>
+        <item name="android:layout_marginTop">@dimen/margin_topbottom_size</item>
+        <item name="android:layout_marginBottom">@dimen/zero</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="label_w_edittext_edit_margin">
+        <item name="android:layout_marginLeft">@dimen/margin_size</item>
+        <item name="android:layout_marginRight">@dimen/margin_size</item>
+        <item name="android:layout_marginTop">@dimen/zero</item>
+        <item name="android:layout_marginBottom">@dimen/margin_topbottom_size</item>
+    </style>
+
 </resources>

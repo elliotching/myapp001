@@ -10,27 +10,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
 public class ContactsAdapter extends
         RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
 
-
-    private List<Contact> mContacts;
+    private ArrayList<Contact> mContacts;
+    private AppCompatActivity activity;
 
     // Pass in the contact array into the constructor
-    public ContactsAdapter(List<Contact> contacts) {
+    public ContactsAdapter(AppCompatActivity activity, ArrayList<Contact> contacts) {
         mContacts = contacts;
+        this.activity = activity;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
+
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
@@ -52,7 +57,12 @@ public class ContactsAdapter extends
         TextView descriptionTextView = holder.descriptionTextView;
 
         titleTextView.setText(contact.getTitle());
-        img.setImageResource(contact.getImage());
+        Picasso.get()
+                .load(contact.getImage())
+                .resize(100, 0)
+                .placeholder(R.drawable.ic_pending)
+                .error(R.drawable.ic_broken)
+                .into(img);
         subtitleTextView.setText(contact.getSubtitle());
         descriptionTextView.setText(contact.getDesc());
     }
@@ -78,10 +88,9 @@ public class ContactsAdapter extends
             descriptionTextView = itemView.findViewById(R.id.contact_description);
 
             this.context = context;
-
             itemView.setOnClickListener(this);
         }
-        // Handles the row being being clickeda
+        // Handles the row being being clicked
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition(); // gets item position
@@ -89,8 +98,8 @@ public class ContactsAdapter extends
                 Contact contact = mContacts.get(position);
                 Toast.makeText(context, titleTextView.getText(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ViewActivity.class);
-                intent.putExtra(RecyclerViewActivity.ID, contact);
-                context.startActivity(intent);
+                intent.putExtra(Res.INTENT_EXTRA_KEY_CLICKED_ID, contact.getId());
+                activity.startActivity(intent);
             }
         }
     }
