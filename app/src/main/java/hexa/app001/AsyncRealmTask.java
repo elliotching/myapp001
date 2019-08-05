@@ -1,0 +1,95 @@
+package hexa.app001;
+
+import android.content.Context;
+import android.os.AsyncTask;
+
+import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+
+public class AsyncRealmTask extends AsyncTask<Integer, Void, Integer> {
+
+    // execute() >>> init asynctask
+    // AsyncTask<Param, Progress, Result>
+    // doInBackground, end return must be going >>> Post (RESULT Type)
+    // doInBackground, mid publishProg must be going >>> ProgUpd (PROGRESS Type)
+
+    private Realm realm;
+    private ArrayList<Contact> al;
+    private RealmResults<Contact> contacts;
+    private Context context;
+    private InterfaceAsyncTaskListener listener;
+
+    AsyncRealmTask(Context context, InterfaceAsyncTaskListener listener){
+        this.context = context;
+        this.listener = listener;
+    }
+
+    @Override
+    protected Integer doInBackground(Integer[] params) {
+        this.realm = Realm.getInstance(Res.realmConfig());
+
+//        if(params[0].equals(Res.ASYNC_CODE_SELECT_ALL_INIT_RV)) {
+//            realm.executeTransaction(realm1 -> {
+//                contacts = realm1.where(Contact.class).findAll();
+//                al = new ArrayList<>();
+//                al.addAll(realm1.copyFromRealm(contacts));
+//            });
+//            return Res.ASYNC_CODE_SELECT_ALL_INIT_RV;
+//        }
+
+        if(params[0].equals(Res.ASYNC_CODE_INIT_DATA)) {
+            final int maxCount = 20;
+            String description = context.getResources().getString(R.string.description);
+            realm.executeTransaction(realm1 -> {
+                for (int id = 1; id <= maxCount; id++) {
+                    final Contact contact = realm1.createObject(Contact.class, id);
+                    contact.setTitle("Title " + id);
+                    contact.setSubtitle("Subtitle "+id+"\nAnother line"+id+"\nYet another line"+id);
+                    contact.setDesc(description);
+                    contact.setImage(Res.getImage(id));
+                }
+                contacts = realm1.where(Contact.class).findAll();
+                al = new ArrayList<>();
+                al.addAll(realm1.copyFromRealm(contacts));
+            });
+            return Res.ASYNC_CODE_INIT_DATA;
+        }
+
+        if(params[0].equals(Res.ASYNC_CODE_SELECT_ALL)){
+            realm.executeTransaction(realm1 -> {
+                contacts = realm1.where(Contact.class).findAll();
+                al = new ArrayList<>();
+                al.addAll(realm1.copyFromRealm(contacts));
+            });
+            return Res.ASYNC_CODE_SELECT_ALL;
+        }
+
+        if(params[0].equals(Res.ASYNC_CODE_CLEAR_ALL)){
+            realm.executeTransaction(realm1->{
+                realm1.delete(Contact.class);
+            });
+            return Res.ASYNC_CODE_CLEAR_ALL;
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Integer result) {
+        super.onPostExecute(result);
+        if(result.equals(Res.ASYNC_CODE_INIT_DATA))
+        {
+            listener.onCompletedInitRecyclerView(al);
+        }
+
+        if(result.equals(Res.ASYNC_CODE_SELECT_ALL)) {
+            if (al == null || al.size() == 0) {
+                listener.initData();
+            }
+            else{
+                listener.onCompletedInitRecyclerView(al);
+            }
+        }
+    }
+}

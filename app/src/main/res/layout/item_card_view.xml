@@ -30,7 +30,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/s001"
                 card_view:layout_constraintTop_toTopOf="@id/constraint_layout"
-                card_view:layout_constraintEnd_toStartOf="@id/contact_title"/>
+                card_view:layout_constraintEnd_toStartOf="@id/tv_title"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -40,7 +40,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/contact_title"
+                    android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue"
@@ -51,19 +51,19 @@
 
 
                 <TextView
-                    android:id="@+id/contact_subtitle"
+                    android:id="@+id/tv_subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/red"
                     android:textSize="18sp"
-                    card_view:layout_constraintTop_toBottomOf="@id/contact_title"
+                    card_view:layout_constraintTop_toBottomOf="@id/tv_title"
                     card_view:layout_constraintStart_toEndOf="@id/image_view" />
 
             </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/contact_description"
+            android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

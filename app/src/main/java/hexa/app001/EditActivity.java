@@ -17,13 +17,15 @@ import androidx.databinding.DataBindingUtil;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import hexa.app001.databinding.ActivityEditBinding;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class EditActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity implements InterfaceAsyncTaskListener {
     private AppCompatActivity activity = this;
     private Context context = this;
     private static int status = 0; // 0 = ADD NEW , 1 = EDIT
@@ -47,7 +49,7 @@ public class EditActivity extends AppCompatActivity {
         contactId = intent.getLongExtra(Res.INTENT_EXTRA_EDIT_CONTACT_ID, -1);
         status = intent.getIntExtra(Res.INTENT_EXTRA_STATUS_CODE, -1);
 
-        AsyncSelectContact async = new AsyncSelectContact();
+        AsyncSelectContact async = new AsyncSelectContact(this);
         async.execute(contactId);
     }
 
@@ -67,7 +69,7 @@ public class EditActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (item.getItemId() == R.id.action_save) {
-            AsyncSaveContact async = new AsyncSaveContact();
+            AsyncSaveContact async = new AsyncSaveContact(this);
             async.execute(contactId);
 
             Intent intent = new Intent();
@@ -80,11 +82,87 @@ public class EditActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCompletedInitRecyclerView(ArrayList<Contact> al) {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void onSaveCompletedInitRecyclerView() {
+
+    }
+
+    @Override
+    public void onSelectCompleted(Contact copiedContact) {
+        // From VIEW or from LIST
+        // click on VIEW -> EDIT
+        // click on LIST -> ADD NEW
+
+        if(copiedContact == null){
+            status = 0;
+            activity.getSupportActionBar().setTitle(R.string.new_item);
+        }else{
+            status = 1;
+            activity.getSupportActionBar().setTitle(Res.get(context, R.string.title_editing)+copiedContact.getTitle());
+            binding.setContact(copiedContact);
+            Picasso.get()
+                    .load(copiedContact.getImage())
+                    .resize(1280, 0)
+                    .placeholder(R.drawable.ic_pending)
+                    .error(R.drawable.ic_broken)
+                    .into(binding.imagePreview);
+        }
+
+        binding.editSubtitle.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence q, int s, int c, int a) {
+            }
+
+            public void onTextChanged(CharSequence q, int s, int b, int c) {
+                int L = binding.editSubtitle.getLineCount();
+                if(L > 3){
+                    binding.editSubtitle.getText().delete(binding.editSubtitle.getSelectionEnd() - 1, binding.editSubtitle.getSelectionStart());
+                }
+            }
+        });
+        binding.etImage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(!b){
+                    if(binding.etImage.getText().toString().isEmpty()){
+                        binding.etImage.setText(Res.DUMP_LINK);
+                    }
+                    Picasso.get()
+                            .load(binding.etImage.getText().toString())
+                            .resize(1280, 0)
+                            .placeholder(R.drawable.ic_pending)
+                            .error(R.drawable.ic_broken)
+                            .into(binding.imagePreview);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onSaveCompletedRefreshViewActivity(Contact copiedContact) {
+
+    }
 
     private class AsyncSelectContact extends AsyncTask<Long, Void, Void> {
         private Realm realm;
         private Contact copiedContact;
-//        private long editingId;
+        private InterfaceAsyncTaskListener listener;
+
+        AsyncSelectContact(InterfaceAsyncTaskListener listener){
+            this.listener = listener;
+        }
         @Override
         protected Void doInBackground(Long[] params) {
             this.realm = Realm.getInstance(Res.realmConfig());
@@ -101,57 +179,7 @@ public class EditActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
-            // From VIEW or from LIST
-            // click on VIEW -> EDIT
-            // click on LIST -> ADD NEW
-
-            if(copiedContact == null){
-                status = 0;
-                activity.getSupportActionBar().setTitle(R.string.new_item);
-            }else{
-                status = 1;
-                activity.getSupportActionBar().setTitle(Res.get(context, R.string.title_editing)+copiedContact.getTitle());
-                binding.setContact(copiedContact);
-                Picasso.get()
-                        .load(copiedContact.getImage())
-                        .resize(1280, 0)
-                        .placeholder(R.drawable.ic_pending)
-                        .error(R.drawable.ic_broken)
-                        .into(binding.imagePreview);
-            }
-
-            binding.editSubtitle.addTextChangedListener(new TextWatcher() {
-                public void afterTextChanged(Editable s) {
-                }
-
-                public void beforeTextChanged(CharSequence q, int s, int c, int a) {
-                }
-
-                public void onTextChanged(CharSequence q, int s, int b, int c) {
-                    int L = binding.editSubtitle.getLineCount();
-                    if(L > 3){
-                        binding.editSubtitle.getText().delete(binding.editSubtitle.getSelectionEnd() - 1, binding.editSubtitle.getSelectionStart());
-                    }
-                }
-            });
-            binding.editImage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    if(!b){
-                        if(binding.editImage.getText().toString().isEmpty()){
-                            binding.editImage.setText(Res.DUMP_LINK);
-                        }
-                        Picasso.get()
-                                .load(binding.editImage.getText().toString())
-                                .resize(1280, 0)
-                                .placeholder(R.drawable.ic_pending)
-                                .error(R.drawable.ic_broken)
-                                .into(binding.imagePreview);
-                    }
-                }
-            });
-
+            listener.onSelectCompleted(copiedContact);
         }
     }
 
@@ -159,6 +187,12 @@ public class EditActivity extends AppCompatActivity {
     private class AsyncSaveContact extends AsyncTask<Long, Void, Void> {
         private Realm realm;
         private long editingId;
+        private Contact copiedContact;
+        private InterfaceAsyncTaskListener listener;
+        AsyncSaveContact(InterfaceAsyncTaskListener listener){
+            this.listener = listener;
+        }
+
         @Override
         protected Void doInBackground(Long[] params) {
             this.realm = Realm.getInstance(Res.realmConfig());
@@ -168,8 +202,9 @@ public class EditActivity extends AppCompatActivity {
                     Contact contact = realm1.where(Contact.class).equalTo("id", params[0]).findFirst();
                     contact.setTitle(binding.editTitle.getText().toString());
                     contact.setSubtitle(binding.editSubtitle.getText().toString());
-                    contact.setImage(binding.editImage.getText().toString());
+                    contact.setImage(binding.etImage.getText().toString());
                     contact.setDesc(binding.editDescription.getText().toString());
+                    copiedContact = realm1.copyFromRealm(contact);
                 }
 
                 if(status == 0){
@@ -178,11 +213,17 @@ public class EditActivity extends AppCompatActivity {
                     Contact contact = realm1.createObject(Contact.class, id);
                     contact.setTitle(binding.editTitle.getText().toString());
                     contact.setSubtitle(binding.editSubtitle.getText().toString());
-                    contact.setImage(binding.editImage.getText().toString().isEmpty()?Res.DUMP_LINK:binding.editImage.getText().toString());
+                    contact.setImage(binding.etImage.getText().toString().isEmpty()?Res.DUMP_LINK:binding.etImage.getText().toString());
                     contact.setDesc(binding.editDescription.getText().toString());
                 }
             });
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            listener.onSaveCompletedRefreshViewActivity(copiedContact);
         }
     }
 }

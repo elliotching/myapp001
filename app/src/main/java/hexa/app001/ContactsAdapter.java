@@ -82,10 +82,10 @@ public class ContactsAdapter extends
         public ViewHolder(Context context, View itemView) {
             super(itemView);
 
-            titleTextView = itemView.findViewById(R.id.contact_title);
+            titleTextView = itemView.findViewById(R.id.tv_title);
             imgView = itemView.findViewById(R.id.image_view);
-            subtitleTextView = itemView.findViewById(R.id.contact_subtitle);
-            descriptionTextView = itemView.findViewById(R.id.contact_description);
+            subtitleTextView = itemView.findViewById(R.id.tv_subtitle);
+            descriptionTextView = itemView.findViewById(R.id.tv_description);
 
             this.context = context;
             itemView.setOnClickListener(this);
@@ -99,7 +99,7 @@ public class ContactsAdapter extends
                 Toast.makeText(context, titleTextView.getText(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ViewActivity.class);
                 intent.putExtra(Res.INTENT_EXTRA_KEY_CLICKED_ID, contact.getId());
-                activity.startActivity(intent);
+                activity.startActivityForResult(intent, Res.REQUEST_CODE_SELECT_CONTACT_REQUEST);
             }
         }
     }

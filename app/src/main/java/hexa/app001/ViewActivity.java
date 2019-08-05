@@ -15,13 +15,13 @@ import com.squareup.picasso.Picasso;
 
 import io.realm.Realm;
 
-public class ViewActivity extends AppCompatActivity {
+public class ViewActivity extends AppCompatActivity{
     private AppCompatActivity activity = this;
     private Context context = this;
-    private TextView titleTextView;
-    private ImageView imageView;
-    private TextView subtitleTextView;
-    private TextView descriptionTextView;
+    private TextView tvTitle;
+    private ImageView ivImage;
+    private TextView tvSubtitle;
+    private TextView tvDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +36,10 @@ public class ViewActivity extends AppCompatActivity {
         async.execute(contactId);
 
         FloatingActionButton editFab = findViewById(R.id.fab_edit);
-        titleTextView = findViewById(R.id.contact_title);
-        imageView = findViewById(R.id.contact_image);
-        subtitleTextView = findViewById(R.id.contact_subtitle);
-        descriptionTextView = findViewById(R.id.contact_description);
+        tvTitle = findViewById(R.id.tv_title);
+        ivImage = findViewById(R.id.iv_image);
+        tvSubtitle = findViewById(R.id.tv_subtitle);
+        tvDescription = findViewById(R.id.tv_description);
 
 
         editFab.setOnClickListener(view -> {
@@ -47,13 +47,17 @@ public class ViewActivity extends AppCompatActivity {
             Intent intent1 = new Intent(context, EditActivity.class);
             intent1.putExtra(Res.INTENT_EXTRA_EDIT_CONTACT_ID, contactId);
             intent1.putExtra(Res.INTENT_EXTRA_STATUS_CODE, 1);
-            startActivityForResult(intent1, Res.EDIT_CONTACT_REQUEST);
+            startActivityForResult(intent1, Res.REQUEST_CODE_EDIT_CONTACT_REQUEST);
         });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
+            Intent intent = new Intent();
+            intent.putExtra(Res.INTENT_EXTRA_STATUS_CODE, 1);
+            activity.setResult(AppCompatActivity.RESULT_OK, intent);
             activity.finish();
             return true;
         }
@@ -63,17 +67,18 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == Res.EDIT_CONTACT_REQUEST) {
+        if (requestCode == Res.REQUEST_CODE_EDIT_CONTACT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                long editingId = data.getLongExtra(Res.INTENT_EXTRA_EDITED_CONTACT_ID, 34895);
-
-                AsyncUpdateContact async = new AsyncUpdateContact();
-                async.execute(editingId);
-
+                long editingId = data.getLongExtra(Res.INTENT_EXTRA_EDITED_CONTACT_ID, Res.DEFAULT_FALSE);
+                if(editingId != Res.DEFAULT_FALSE) {
+                    AsyncUpdateContact async = new AsyncUpdateContact();
+                    async.execute(editingId);
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
     private class AsyncUpdateContact extends AsyncTask<Long, Void, Void> {
 
@@ -84,6 +89,8 @@ public class ViewActivity extends AppCompatActivity {
 
         private Realm realm;
         private Contact copiedContact;
+
+
 
         @Override
         protected Void doInBackground(Long[] params) {
@@ -102,15 +109,15 @@ public class ViewActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             if (copiedContact.getTitle() != null) {
-                titleTextView.setText(copiedContact.getTitle());
-                subtitleTextView.setText(copiedContact.getSubtitle());
-                descriptionTextView.setText(copiedContact.getDesc());
+                tvTitle.setText(copiedContact.getTitle());
+                tvSubtitle.setText(copiedContact.getSubtitle());
+                tvDescription.setText(copiedContact.getDesc());
                 Picasso.get()
                         .load(copiedContact.getImage())
                         .resize(1280, 0)
                         .placeholder(R.drawable.ic_pending)
                         .error(R.drawable.ic_broken)
-                        .into(imageView);
+                        .into(ivImage);
             }
         }
     }
@@ -138,15 +145,15 @@ public class ViewActivity extends AppCompatActivity {
 
             if (copiedContact != null) {
                 activity.getSupportActionBar().setTitle(copiedContact.getTitle());
-                titleTextView.setText(copiedContact.getTitle());
+                tvTitle.setText(copiedContact.getTitle());
                 Picasso.get()
                         .load(copiedContact.getImage())
                         .resize(1280, 0)
                         .placeholder(R.drawable.ic_pending)
                         .error(R.drawable.ic_broken)
-                        .into(imageView);
-                subtitleTextView.setText(copiedContact.getSubtitle());
-                descriptionTextView.setText(copiedContact.getDesc());
+                        .into(ivImage);
+                tvSubtitle.setText(copiedContact.getSubtitle());
+                tvDescription.setText(copiedContact.getDesc());
             }
         }
     }
