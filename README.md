@@ -2,7 +2,7 @@
 ## Task 2
 
 ### Realm Impl
-Data is prepopulated into Realm if realm table Contact is empty
+Data is prepopulated into Realm if realm table Movie is empty
 
 ### PrimaryKey (int)
 All init progress using integer increment for the id Primary Key.
