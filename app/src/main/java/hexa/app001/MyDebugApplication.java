@@ -13,7 +13,7 @@ public class MyDebugApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    Realm.init(this);
+//    Realm.init(this);
     
     RealmInspectorModulesProvider realmInspector = RealmInspectorModulesProvider.builder(this)
 //                .withDeleteIfMigrationNeeded(true)

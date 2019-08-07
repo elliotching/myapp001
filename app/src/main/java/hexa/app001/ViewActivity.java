@@ -35,20 +35,20 @@ public class ViewActivity extends AppCompatActivity {
 //    AsyncSelectContact async = new AsyncSelectContact();
 //    async.execute(contactId);
     
-    FloatingActionButton editFab = findViewById(R.id.fab_edit);
+//    FloatingActionButton editFab = findViewById(R.id.fab_edit);
     tvTitle = findViewById(R.id.tv_title);
     ivImage = findViewById(R.id.iv_image);
     tvSubtitle = findViewById(R.id.tv_subtitle);
     tvDescription = findViewById(R.id.tv_description);
     
     
-    editFab.setOnClickListener(view -> {
-      // to EDIT!
-      Intent intent1 = new Intent(context, EditActivity.class);
-      intent1.putExtra(Res.INTENT_EXTRA_EDIT_CONTACT_ID, contactId);
-      intent1.putExtra(Res.INTENT_EXTRA_STATUS_CODE, 1);
-      startActivityForResult(intent1, Res.REQUEST_CODE_EDIT_CONTACT_REQUEST);
-    });
+//    editFab.setOnClickListener(view -> {
+//      // to EDIT!
+//      Intent intent1 = new Intent(context, EditActivity.class);
+//      intent1.putExtra(Res.INTENT_EXTRA_EDIT_CONTACT_ID, contactId);
+//      intent1.putExtra(Res.INTENT_EXTRA_STATUS_CODE, 1);
+//      startActivityForResult(intent1, Res.REQUEST_CODE_EDIT_CONTACT_REQUEST);
+//    });
   }
   
   @Override
