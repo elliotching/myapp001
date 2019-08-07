@@ -1,6 +1,8 @@
 package hexa.app001;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -36,4 +38,13 @@ public class Res {
     return "https://picsum.photos/id/0/5616/3744";
   }
   
+  public static float px_from_dp_of(Context context,float dip){
+    Resources r = context.getResources();
+    float px = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dip,
+        r.getDisplayMetrics()
+    );
+    return px;
+  }
 }

@@ -34,9 +34,14 @@ public class RecyclerViewPresenter<T extends RecyclerViewMvpView> {
     }
   }
   
-  public ArrayList<Movie> getMovies() {
+  public void getMovies() {
     // retrieve request from API http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
-    
-    return new ArrayList<>();
+    ArrayList<Movie> a = new ArrayList<>();
+    a.add(new Movie());
+    a.add(new Movie());
+    a.add(new Movie());
+    a.add(new Movie());
+//    return a;
+    getMvpView().populateRecyclerView(a);
   }
 }

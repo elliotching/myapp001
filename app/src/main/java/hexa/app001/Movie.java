@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Movie extends RealmObject implements Parcelable {
+public class Movie implements Parcelable {
   //    private Context context;
   @PrimaryKey
   private long id;
@@ -16,7 +16,10 @@ public class Movie extends RealmObject implements Parcelable {
   private String mDesc;
   
   public Movie() {
-    super();
+    mTitle = "Title";
+    mImage = "Images";
+    mSubtitle = "mSubtitle";
+    mDesc = "mDesc";
   }
   
   public static final Creator<Movie> CREATOR = new Creator<Movie>() {
