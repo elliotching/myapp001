@@ -31,7 +31,6 @@ public class ViewActivity extends BaseActivity {
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    Log.d(TAG, "onCreate: View");
     super.onCreate(savedInstanceState);
     Intent i = startBase(R.layout.activity_view, viewActivity);
     movie = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);

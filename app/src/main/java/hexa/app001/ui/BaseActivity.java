@@ -17,7 +17,6 @@ public class BaseActivity extends AppCompatActivity {
   
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
-    Log.d(TAG, "onCreate: BaseActivity");
     super.onCreate(savedInstanceState);
   }
   
