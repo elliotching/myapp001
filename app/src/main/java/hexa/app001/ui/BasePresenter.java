@@ -9,6 +9,8 @@ public class BasePresenter<T> {
   private NetworkHelper mNetwork;
   
   public BasePresenter() {
+//    CarComponent component = DaggerCarComponent.create();
+//    component.inject(this);
     mCompositeDisposable = new CompositeDisposable();
     mNetwork = new NetworkHelper();
   }

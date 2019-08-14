@@ -1,6 +1,8 @@
 package hexa.app001.ui;
 
 
+import javax.inject.Inject;
+
 import hexa.app001.data.RetrofitApi;
 import hexa.app001.data.SearchResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -9,6 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RecyclerViewPresenter extends BasePresenter<RecyclerViewMvpView> {
   
+  @Inject
   public RecyclerViewPresenter() {
     super();
   }

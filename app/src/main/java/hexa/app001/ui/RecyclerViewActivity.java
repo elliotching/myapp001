@@ -19,8 +19,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import hexa.app001.daggerinjection.DaggerRecyclerViewPresenterComponent;
+import hexa.app001.daggerinjection.RecyclerViewPresenterComponent;
 import hexa.app001.data.Movie;
 import hexa.app001.adapter.MovieAdapter;
 import hexa.app001.R;
@@ -33,7 +36,9 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
   public final Context context = this;
   public final RecyclerViewActivity activity = this;
   public final RecyclerViewMvpView mvpView = this;
-  private RecyclerViewPresenter mPresenter;
+  
+  @Inject
+  RecyclerViewPresenter mPresenter;
   
   @BindView(R2.id.edt_search)
   EditText edtSearch;
@@ -56,7 +61,10 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
     startBase(R.layout.activity_recycler_view, activity);
     
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
-    mPresenter = new RecyclerViewPresenter();
+    RecyclerViewPresenterComponent component = DaggerRecyclerViewPresenterComponent.create();
+    component.inject(this);
+    
+    //mPresenter = new RecyclerViewPresenter();
     mPresenter.attachView(mvpView);
     
     activity.showHintSearch();
