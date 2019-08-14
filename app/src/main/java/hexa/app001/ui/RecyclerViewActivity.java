@@ -53,8 +53,6 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-//    setContentView(R.layout.activity_recycler_view);
-//    ButterKnife.bind(activity);
     startBase(R.layout.activity_recycler_view, activity);
     
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
