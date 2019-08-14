@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/tiny"
-            android:hint="@string/hint_search" />
+            android:hint="@string/hint_edt_search" />
 
     </androidx.cardview.widget.CardView>
 

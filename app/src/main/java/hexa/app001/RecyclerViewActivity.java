@@ -62,11 +62,14 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if(charSequence.length() == 0){
-        
+          changeVisibility(0,0,1);
+          activity.showHintSearch();
         }
-        activity.showProgressBar();
-        mPresenter.search(charSequence.toString());
-        mPresenter.loadMovies(charSequence.toString(), Res.API_KEY);
+        else {
+          activity.showProgressBar();
+          mPresenter.search(charSequence.toString());
+          mPresenter.loadMovies(charSequence.toString(), Res.API_KEY);
+        }
       }
   
       @Override
@@ -77,11 +80,48 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     
   }
   
+  private void changeVisibility(Integer... visibility){
+    for(int i = 0; i < visibility.length; i++) {
+      switch(i){
+        case 0:
+          activity.setVisibility(pbLoadingSearch, i);
+          break;
+        case 1:
+          activity.setVisibility(rvContacts, i);
+          break;
+        case 2:
+          activity.setVisibility(tvErrorSearch, i);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  
+  private void setVisibility(View v, int i) {
+    switch (i) {
+      case 0://false
+        v.setVisibility(View.GONE);
+        break;
+      case 1://true
+        v.setVisibility(View.VISIBLE);
+        break;
+      default:
+    
+    }
+  }
+  
+  private void showHintSearch() {
+    tvErrorSearch.setVisibility(View.VISIBLE);
+    tvErrorSearch.setText(R.string.hint_msg_search);
+  }
+  
   
   private void showProgressBar(){
-    pbLoadingSearch.setVisibility(View.VISIBLE);
-    tvErrorSearch.setVisibility(View.GONE);
-    rvContacts.setVisibility(View.GONE);
+    changeVisibility(1,0,0);
+//    pbLoadingSearch.setVisibility(View.VISIBLE);
+//    rvContacts.setVisibility(View.GONE);
+//    tvErrorSearch.setVisibility(View.GONE);
   }
   
   @Override
@@ -101,9 +141,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
   @Override
   public void populateRecyclerView(List<Movie> movies) {
-    rvContacts.setVisibility(View.VISIBLE);
-    tvErrorSearch.setVisibility(View.GONE);
-    pbLoadingSearch.setVisibility(View.GONE);
+    changeVisibility(0,1,0);
+//    pbLoadingSearch.setVisibility(View.GONE);
+//    rvContacts.setVisibility(View.VISIBLE);
+//    tvErrorSearch.setVisibility(View.GONE);
     
     ArrayList<Movie> amovies = new ArrayList<>(movies);
     MovieAdapter movieAdapter = new MovieAdapter(activity, amovies);
@@ -113,9 +154,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
   @Override
   public void showError(String error) {
-    rvContacts.setVisibility(View.GONE);
-    tvErrorSearch.setVisibility(View.VISIBLE);
-    pbLoadingSearch.setVisibility(View.GONE);
+    changeVisibility(0,0,1);
+//    rvContacts.setVisibility(View.GONE);
+//    pbLoadingSearch.setVisibility(View.GONE);
+//    tvErrorSearch.setVisibility(View.VISIBLE);
     
     error = Res.get(context, R.string.error_text) + error;
     

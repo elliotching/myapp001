@@ -12,7 +12,8 @@
     <string name="label_preview">Preview</string>
     <string name="menu_save">Save</string>
     <string name="title_editing">Editing:</string>
-    <string name="hint_search">eg. Tom Raider</string>
+    <string name="hint_edt_search">eg. Tom Raider</string>
+    <string name="hint_msg_search">Please type something to search.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
