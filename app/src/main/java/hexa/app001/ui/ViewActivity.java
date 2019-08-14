@@ -3,15 +3,11 @@ package hexa.app001.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import hexa.app001.data.Movie;
 import hexa.app001.data.NetworkHelper;
 import hexa.app001.R;
@@ -20,10 +16,10 @@ import hexa.app001.data.Res;
 
 public class ViewActivity extends BaseActivity {
   private final String TAG = this.getClass().getSimpleName();
-  private ViewActivity activity = this;
+  private ViewActivity viewActivity = this;
   private Context context = this;
-  
   private Movie movie;
+  
   @BindView(R2.id.tv_title)
   TextView tvTitle;
   @BindView(R2.id.iv_image)
@@ -35,18 +31,13 @@ public class ViewActivity extends BaseActivity {
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    Log.d(TAG, "onCreate: View");
     super.onCreate(savedInstanceState);
-    Intent i = startBase(R.layout.activity_recycler_view, activity);
+    Intent i = startBase(R.layout.activity_view, viewActivity);
     movie = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
-    if (activity.getSupportActionBar() != null) {
-      activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      if (movie != null) {
-        activity.getSupportActionBar().setTitle(movie.getTitle());
-      }
-    }
-    activity.displayMovie();
+    viewActivity.setActionBarTitle(movie);
+    viewActivity.displayMovie();
   }
-  
   
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {

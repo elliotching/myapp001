@@ -27,7 +27,7 @@ import hexa.app001.R;
 import hexa.app001.R2;
 import hexa.app001.data.Res;
 
-public class RecyclerViewActivity extends AppCompatActivity implements RecyclerViewMvpView{
+public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMvpView{
   
   private static final String TAG = "RecyclerViewActivity";
   public final Context context = this;
@@ -53,8 +53,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_recycler_view);
-    ButterKnife.bind(activity);
+//    setContentView(R.layout.activity_recycler_view);
+//    ButterKnife.bind(activity);
+    startBase(R.layout.activity_recycler_view, activity);
     
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
     mPresenter = new RecyclerViewPresenter();
