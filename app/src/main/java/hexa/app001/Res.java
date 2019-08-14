@@ -20,10 +20,16 @@ public class Res {
   public static final Integer ASYNC_CODE_CLEAR_ALL = 3;
   public static final long DEFAULT_FALSE = -1;
   public static final int REQUEST_CODE_SELECT_CONTACT_REQUEST = 101;
+  public static final String API_KEY = "dc16346";
+  public static final String INTENT_EXTRA_KEY_MOVIE = "key_movie";
   
   public static final String get(Context context, int ResourceID) {
     return context.getResources().getString(ResourceID);
   }
+  
+//  public static final String get(int ResourceID) {
+//    return Resources.getSystem().getString(ResourceID);
+//  }
   
   public static final RealmConfiguration realmConfig() {
     RealmConfiguration config = new RealmConfiguration
@@ -35,7 +41,7 @@ public class Res {
   
   public static String getImage(int i) {
     int n = (i % 9) + 1;
-    return "https://picsum.photos/id/0/5616/3744";
+    return DUMP_LINK;
   }
   
   public static float px_from_dp_of(Context context,float dip){
@@ -47,4 +53,16 @@ public class Res {
     );
     return px;
   }
+  
+  
+  public static float pxToDp(float px) {
+    float densityDpi = Resources.getSystem().getDisplayMetrics().densityDpi;
+    return px / (densityDpi / 160f);
+  }
+  
+  public static int dpToPx(int dp) {
+    float density = Resources.getSystem().getDisplayMetrics().density;
+    return Math.round(dp * density);
+  }
+  
 }

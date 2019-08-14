@@ -11,13 +11,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,9 +26,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
   private static final String TAG = "RecyclerViewActivity";
   public final Context context = this;
-  public final AppCompatActivity activity = this;
-  public final RecyclerViewActivity thisInterface = this;
-  private RecyclerView rvContacts;
+  public final RecyclerViewActivity activity = this;
+  public final RecyclerViewMvpView mvpView = this;
+  private RecyclerViewPresenter<RecyclerViewMvpView> mPresenter;
   
   @BindView(R2.id.edt_search)
   EditText edtSearch;
@@ -36,20 +36,24 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   @BindView(R2.id.card_search)
   CardView cardSearch;
   
-  private RecyclerViewPresenter<RecyclerViewMvpView> mRecyclerViewPresenter;
+  @BindView(R2.id.rv_contacts)
+  RecyclerView rvContacts;
   
+  @BindView(R2.id.tv_error)
+  TextView tvErrorSearch;
   
+  @BindView(R2.id.pb_loading_search)
+  ProgressBar pbLoadingSearch;
+//
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recycler_view);
     ButterKnife.bind(activity);
-    rvContacts = findViewById(R.id.rvContacts);
     
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
-    mRecyclerViewPresenter = new RecyclerViewPresenter<>();
-    mRecyclerViewPresenter.attachView(this);
-    mRecyclerViewPresenter.getMovies();
+    mPresenter = new RecyclerViewPresenter<>();
+    mPresenter.attachView(mvpView);
     
     edtSearch.addTextChangedListener(new TextWatcher() {
       @Override
@@ -57,8 +61,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        String currentText = edtSearch.getText().toString();
-        Log.d(TAG, "onTextChanged: "+currentText);
+        activity.showProgressBar();
+        mPresenter.search(charSequence.toString());
+        mPresenter.loadMovies(charSequence.toString(), Res.API_KEY);
       }
   
       @Override
@@ -66,6 +71,12 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     
       }
     });
+    
+  }
+  
+  
+  private void showProgressBar(){
+    searching();
   }
   
   @Override
@@ -84,10 +95,32 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   }
   
   @Override
-  public void populateRecyclerView(ArrayList<Movie> movies) {
-    MovieAdapter movieAdapter = new MovieAdapter(activity, movies);
+  public void populateRecyclerView(List<Movie> movies) {
+    rvContacts.setVisibility(View.VISIBLE);
+    tvErrorSearch.setVisibility(View.GONE);
+    pbLoadingSearch.setVisibility(View.GONE);
+    
+    ArrayList<Movie> amovies = new ArrayList<>(movies);
+    MovieAdapter movieAdapter = new MovieAdapter(activity, amovies);
     rvContacts.setAdapter(movieAdapter);
     rvContacts.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
   }
   
+  @Override
+  public void showError(String error) {
+    rvContacts.setVisibility(View.GONE);
+    tvErrorSearch.setVisibility(View.VISIBLE);
+    pbLoadingSearch.setVisibility(View.GONE);
+    
+    error = Res.get(context, R.string.error_text) + error;
+    
+    tvErrorSearch.setText(error);
+  }
+  
+  @Override
+  public void searching() {
+    pbLoadingSearch.setVisibility(View.VISIBLE);
+    tvErrorSearch.setVisibility(View.GONE);
+    rvContacts.setVisibility(View.GONE);
+  }
 }

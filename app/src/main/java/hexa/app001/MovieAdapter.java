@@ -51,20 +51,20 @@ public class MovieAdapter extends
     // Get the data model based on position
     Movie movie = mMovies.get(position);
     
-    TextView titleTextView = holder.titleTextView;
-    ImageView img = holder.imgView;
-    TextView subtitleTextView = holder.subtitleTextView;
-    TextView descriptionTextView = holder.descriptionTextView;
+    TextView titleTextView = holder.tvTitle;
+    ImageView img = holder.imgPoster;
+    TextView subtitleTextView = holder.tvSubtitle;
+    TextView descriptionTextView = holder.tvDescription;
     
     titleTextView.setText(movie.getTitle());
     Picasso.get()
-        .load(movie.getImage())
+        .load(movie.getPoster())
         .resize(100, 0)
         .placeholder(R.drawable.ic_pending)
         .error(R.drawable.ic_broken)
         .into(img);
-    subtitleTextView.setText(movie.getSubtitle());
-    descriptionTextView.setText(movie.getDesc());
+    subtitleTextView.setText(movie.getYear()+"\n"+movie.getType());
+    descriptionTextView.setText(movie.getTitle()+" is a "+movie.getType()+" produced in "+movie.getYear());
   }
   
   @Override
@@ -73,19 +73,19 @@ public class MovieAdapter extends
   }
   
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public TextView titleTextView;
-    public ImageView imgView;
-    public TextView subtitleTextView;
-    public TextView descriptionTextView;
-    private Context context;
+    TextView tvTitle;
+    ImageView imgPoster;
+    TextView tvSubtitle;
+    TextView tvDescription;
+    Context context;
     
     public ViewHolder(Context context, View itemView) {
       super(itemView);
       
-      titleTextView = itemView.findViewById(R.id.tv_title);
-      imgView = itemView.findViewById(R.id.image_view);
-      subtitleTextView = itemView.findViewById(R.id.tv_subtitle);
-      descriptionTextView = itemView.findViewById(R.id.tv_description);
+      tvTitle = itemView.findViewById(R.id.tv_title);
+      imgPoster = itemView.findViewById(R.id.image_view);
+      tvSubtitle = itemView.findViewById(R.id.tv_subtitle);
+      tvDescription = itemView.findViewById(R.id.tv_description);
       
       this.context = context;
       itemView.setOnClickListener(this);
@@ -97,9 +97,9 @@ public class MovieAdapter extends
       int position = getAdapterPosition(); // gets item position
       if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
         Movie movie = mMovies.get(position);
-        Toast.makeText(context, titleTextView.getText(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, tvTitle.getText(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, ViewActivity.class);
-        intent.putExtra(Res.INTENT_EXTRA_KEY_CLICKED_ID, movie.getId());
+        intent.putExtra(Res.INTENT_EXTRA_KEY_MOVIE, movie);
         activity.startActivityForResult(intent, Res.REQUEST_CODE_SELECT_CONTACT_REQUEST);
       }
     }

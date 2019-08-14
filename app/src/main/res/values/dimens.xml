@@ -6,4 +6,7 @@
     <dimen name="margin_size">26dp</dimen>
     <dimen name="margin_topbottom_size">30dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="tiny">10dp</dimen>
+    <item name="half_scale" type="dimen" format="float">0.5</item>
+    <item name="small_scale" type="dimen" format="float">0.1</item>
 </resources>

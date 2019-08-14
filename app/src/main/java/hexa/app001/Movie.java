@@ -3,82 +3,78 @@ package hexa.app001;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie implements Parcelable {
-  //    private Context context;
-  @PrimaryKey
-  private long id;
-  private String mTitle;
-  private String mImage;
-  private String mSubtitle;
-  private String mDesc;
   
-  public Movie() {
-    mTitle = "Title";
-    mImage = "Images";
-    mSubtitle = "mSubtitle";
-    mDesc = "mDesc";
-  }
+  @JsonProperty("Title")
+  private String Title;
+  @JsonProperty("Year")
+  private String Year;
+  @JsonProperty("imdbID")
+  private String imdbID;
+  @JsonProperty("Type")
+  private String Type;
+  @JsonProperty("Poster")
+  private String Poster;
   
-  public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-    @Override
-    public Movie createFromParcel(Parcel in) {
-      return new Movie(in);
-    }
-    
-    @Override
-    public Movie[] newArray(int size) {
-      return new Movie[size];
-    }
-  };
   
-  public long getId() {
-    return id;
-  }
-  
-  public void setTitle(String mTitle) {
-    this.mTitle = mTitle;
-  }
-  
-  public void setImage(String imageURL) {
-    this.mImage = imageURL;
-  }
-  
-  public void setSubtitle(String mSubtitle) {
-    this.mSubtitle = mSubtitle;
-  }
-  
-  public void setDesc(String mDesc) {
-    this.mDesc = mDesc;
-  }
-  
+  @JsonProperty("Title")
   public String getTitle() {
-    return mTitle;
+    return Title;
   }
   
-  
-  public String getImage() {
-    return mImage;
+  @JsonProperty("Title")
+  public void setTitle(String title) {
+    Title = title;
   }
   
-  public String getDesc() {
-    return mDesc;
+  @JsonProperty("Year")
+  public String getYear() {
+    return Year;
   }
   
-  public String getSubtitle() {
-    return mSubtitle;
+  @JsonProperty("Year")
+  public void setYear(String year) {
+    Year = year;
   }
   
+  @JsonProperty("imdbID")
+  public String getImdbID() {
+    return imdbID;
+  }
   
-  // In constructor you will read the variables from Parcel. Make sure to read them in the same sequence in which you have written them in Parcel.
-  Movie(Parcel in) {
-    this.id = in.readLong();
-    this.mTitle = in.readString();
-    this.mImage = in.readString();
-    this.mSubtitle = in.readString();
-    this.mDesc = in.readString();
+  @JsonProperty("imdbID")
+  public void setImdbID(String imdbID) {
+    this.imdbID = imdbID;
+  }
+  
+  @JsonProperty("Type")
+  public String getType() {
+    return Type;
+  }
+  
+  @JsonProperty("Type")
+  public void setType(String type) {
+    Type = type;
+  }
+  
+  @JsonProperty("Poster")
+  public String getPoster() {
+    return Poster;
+  }
+  
+  @JsonProperty("Poster")
+  public void setPoster(String poster) {
+    Poster = poster;
   }
   
   @Override
@@ -87,16 +83,34 @@ public class Movie implements Parcelable {
   }
   
   @Override
-  public void writeToParcel(Parcel parcel, int i) {
-    // Write data in any order
-    parcel.writeLong(this.id);
-    parcel.writeString(this.getTitle());
-    parcel.writeString(this.getImage());
-    parcel.writeString(this.getSubtitle());
-    parcel.writeString(this.getDesc());
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.Title);
+    dest.writeString(this.Year);
+    dest.writeString(this.imdbID);
+    dest.writeString(this.Type);
+    dest.writeString(this.Poster);
   }
   
-  public void setId(int id) {
-    this.id = id;
+  public Movie() {
   }
+  
+  protected Movie(Parcel in) {
+    this.Title = in.readString();
+    this.Year = in.readString();
+    this.imdbID = in.readString();
+    this.Type = in.readString();
+    this.Poster = in.readString();
+  }
+  
+  public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    @Override
+    public Movie createFromParcel(Parcel source) {
+      return new Movie(source);
+    }
+    
+    @Override
+    public Movie[] newArray(int size) {
+      return new Movie[size];
+    }
+  };
 }
