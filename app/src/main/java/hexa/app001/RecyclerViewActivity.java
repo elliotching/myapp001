@@ -54,7 +54,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
     mPresenter = new RecyclerViewPresenter<>();
     mPresenter.attachView(mvpView);
+    
     activity.showHintSearch();
+    
     edtSearch.addTextChangedListener(new TextWatcher() {
       @Override
       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -81,21 +83,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
   // v[0] = 0 or 1 ,
   private void changeVisibility(Integer... visibility){
-    for(int i = 0; i < visibility.length; i++) { // 0 - 2
-      switch(i){
-        case 0:
-          activity.setVisibility(pbLoadingSearch, visibility[0]);
-          break;
-        case 1:
-          activity.setVisibility(rvContacts, visibility[1]);
-          break;
-        case 2:
-          activity.setVisibility(tvErrorSearch, visibility[2]);
-          break;
-        default:
-          break;
-      }
-    }
+    activity.setVisibility(pbLoadingSearch, visibility[0]);
+    activity.setVisibility(rvContacts, visibility[1]);
+    activity.setVisibility(tvErrorSearch, visibility[2]);
   }
   
   private void setVisibility(View v, int i) {
