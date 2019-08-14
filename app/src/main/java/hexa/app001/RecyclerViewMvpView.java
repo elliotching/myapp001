@@ -11,6 +11,4 @@ public interface RecyclerViewMvpView {
   void populateRecyclerView(List<Movie> movies);
   
   void showError(String error);
-  
-  void searching();
 }

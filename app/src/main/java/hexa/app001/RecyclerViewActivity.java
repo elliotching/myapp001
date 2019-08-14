@@ -61,6 +61,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        if(charSequence.length() == 0){
+        
+        }
         activity.showProgressBar();
         mPresenter.search(charSequence.toString());
         mPresenter.loadMovies(charSequence.toString(), Res.API_KEY);
@@ -76,7 +79,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
   
   private void showProgressBar(){
-    searching();
+    pbLoadingSearch.setVisibility(View.VISIBLE);
+    tvErrorSearch.setVisibility(View.GONE);
+    rvContacts.setVisibility(View.GONE);
   }
   
   @Override
@@ -115,12 +120,5 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     error = Res.get(context, R.string.error_text) + error;
     
     tvErrorSearch.setText(error);
-  }
-  
-  @Override
-  public void searching() {
-    pbLoadingSearch.setVisibility(View.VISIBLE);
-    tvErrorSearch.setVisibility(View.GONE);
-    rvContacts.setVisibility(View.GONE);
   }
 }
