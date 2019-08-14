@@ -60,7 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     TextView descriptionTextView = holder.tvDescription;
     
     titleTextView.setText(movie.getTitle());
-    NetworkHelper.setImageUrl(img, movie.getPoster());
+    NetworkHelper.setImageUrl(img, movie.getPoster(), Res.IMAGE_SIZE_SMALL);
     subtitleTextView.setText(movie.getSubtitle());
     descriptionTextView.setText(movie.getDescription());
   }

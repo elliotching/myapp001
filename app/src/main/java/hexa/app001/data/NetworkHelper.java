@@ -43,10 +43,11 @@ public class NetworkHelper {
         return mRetrofit;
     }
     
-    public static void setImageUrl(ImageView imgView, String url){
+    public static void setImageUrl(ImageView imgView, String url, float targetDp){
+        targetDp = Res.pxToDp(targetDp);
         Picasso.get()
             .load(url)
-            .resize(100, 0)
+            .resize((int)targetDp, 0)
             .placeholder(R.drawable.ic_pending)
             .error(R.drawable.ic_broken)
             .into(imgView);

@@ -56,7 +56,7 @@ public class ViewActivity extends BaseActivity {
     tvTitle.setText(movie.getTitle());
     tvSubtitle.setText(movie.getSubtitle());
     tvDescription.setText(movie.getDescription());
-    NetworkHelper.setImageUrl(ivImage, movie.getPoster());
+    NetworkHelper.setImageUrl(ivImage, movie.getPoster(), Res.IMAGE_SIZE_FULL);
   }
 }
 

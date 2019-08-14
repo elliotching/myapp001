@@ -22,6 +22,8 @@ public class Res {
   public static final int REQUEST_CODE_SELECT_CONTACT_REQUEST = 101;
   public static final String API_KEY = "dc16346";
   public static final String INTENT_EXTRA_KEY_MOVIE = "key_movie";
+  public static final float IMAGE_SIZE_FULL = 500.0f;
+  public static final float IMAGE_SIZE_SMALL = 100.0f;
   
   public static final String get(Context context, int ResourceID) {
     return context.getResources().getString(ResourceID);
