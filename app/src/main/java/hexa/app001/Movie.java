@@ -77,6 +77,13 @@ public class Movie implements Parcelable {
     Poster = poster;
   }
   
+  public String getSubtitle(){
+    return getYear()+"\n"+getType();
+  }
+  public String getDescription(){
+    return getTitle()+" is a "+getType()+" produced in "+getYear();
+  }
+  
   @Override
   public int describeContents() {
     return 0;

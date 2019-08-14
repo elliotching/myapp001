@@ -15,9 +15,10 @@ import butterknife.ButterKnife;
 
 public class ViewActivity extends AppCompatActivity {
   private final String TAG = this.getClass().getSimpleName();
-  private AppCompatActivity activity = this;
+  private ViewActivity activity = this;
   private Context context = this;
   private ViewPresenter mPresenter;
+  private Movie movie;
   @BindView(R2.id.tv_title)
   TextView tvTitle;
   @BindView(R2.id.iv_image)
@@ -33,13 +34,14 @@ public class ViewActivity extends AppCompatActivity {
     setContentView(R.layout.activity_view);
     ButterKnife.bind(activity);
     Intent i = this.getIntent();
-    Movie m = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
+    movie = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
     if (activity.getSupportActionBar() != null) {
       activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      if (m != null) {
-        activity.getSupportActionBar().setTitle(m.getTitle());
+      if (movie != null) {
+        activity.getSupportActionBar().setTitle(movie.getTitle());
       }
     }
+    activity.displayMovie();
   }
   
   @Override
@@ -63,6 +65,13 @@ public class ViewActivity extends AppCompatActivity {
         }
       }
     }
+  }
+  
+  private void displayMovie(){
+    tvTitle.setText(movie.getTitle());
+    tvSubtitle.setText(movie.getSubtitle());
+    tvDescription.setText(movie.getDescription());
+    NetworkHelper.setImageUrl(ivImage, movie.getPoster());
   }
 }
 

@@ -1,14 +1,10 @@
 package hexa.app001;
 
-import android.database.Cursor;
+import android.widget.ImageView;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -17,24 +13,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class NetworkHelper {
     
     private static final String BASE_URL = "http://www.omdbapi.com";
-    //    private DisposableObserver<SearchResponse> mObserver;
     private OkHttpClient mOkHttpClient;
     private Retrofit mRetrofit;
     
-//    public NetworkHelper(DisposableObserver<SearchResponse> mObservable) {
-//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-//        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-//        mOkHttpClient = new OkHttpClient.Builder()
-//            .addInterceptor(logging)
-//            .build();
-//        mRetrofit = new Retrofit.Builder()
-//            .baseUrl("http://www.omdbapi.com")
-//            .addConverterFactory(JacksonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//            .client(mOkHttpClient)
-//            .build();
-//        this.mObserver = mObservable;
-//    }
     public NetworkHelper() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.level(HttpLoggingInterceptor.Level.BODY);
@@ -48,11 +29,6 @@ public class NetworkHelper {
             .client(mOkHttpClient)
             .build();
     }
-//    
-//    public DisposableObserver<SearchResponse> getObserverMovies() {
-//        
-//        return mObserver;
-//    }
     
     public Retrofit getRetrofit() {
         if(mRetrofit == null) {
@@ -64,5 +40,14 @@ public class NetworkHelper {
                 .build();
         }
         return mRetrofit;
+    }
+    
+    public static void setImageUrl(ImageView imgView, String url){
+        Picasso.get()
+            .load(url)
+            .resize(100, 0)
+            .placeholder(R.drawable.ic_pending)
+            .error(R.drawable.ic_broken)
+            .into(imgView);
     }
 }

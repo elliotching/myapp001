@@ -57,14 +57,9 @@ public class MovieAdapter extends
     TextView descriptionTextView = holder.tvDescription;
     
     titleTextView.setText(movie.getTitle());
-    Picasso.get()
-        .load(movie.getPoster())
-        .resize(100, 0)
-        .placeholder(R.drawable.ic_pending)
-        .error(R.drawable.ic_broken)
-        .into(img);
-    subtitleTextView.setText(movie.getYear()+"\n"+movie.getType());
-    descriptionTextView.setText(movie.getTitle()+" is a "+movie.getType()+" produced in "+movie.getYear());
+    NetworkHelper.setImageUrl(img, movie.getPoster());
+    subtitleTextView.setText(movie.getSubtitle());
+    descriptionTextView.setText(movie.getDescription());
   }
   
   @Override
