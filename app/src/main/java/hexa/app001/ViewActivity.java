@@ -17,6 +17,7 @@ public class ViewActivity extends AppCompatActivity {
   private final String TAG = this.getClass().getSimpleName();
   private AppCompatActivity activity = this;
   private Context context = this;
+  private ViewPresenter mPresenter;
   @BindView(R2.id.tv_title)
   TextView tvTitle;
   @BindView(R2.id.iv_image)
@@ -35,19 +36,15 @@ public class ViewActivity extends AppCompatActivity {
     Movie m = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
     if (activity.getSupportActionBar() != null) {
       activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      m = null;
-      assert m != null;
-      activity.getSupportActionBar().setTitle(m.getTitle());
+      if (m != null) {
+        activity.getSupportActionBar().setTitle(m.getTitle());
+      }
     }
   }
   
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
-      
-      Intent intent = new Intent();
-      intent.putExtra(Res.INTENT_EXTRA_STATUS_CODE, 1);
-      activity.setResult(AppCompatActivity.RESULT_OK, intent);
       activity.finish();
       return true;
     }
