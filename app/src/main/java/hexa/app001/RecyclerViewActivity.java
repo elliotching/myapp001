@@ -28,7 +28,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   public final Context context = this;
   public final RecyclerViewActivity activity = this;
   public final RecyclerViewMvpView mvpView = this;
-  private RecyclerViewPresenter<RecyclerViewMvpView> mPresenter;
+  private RecyclerViewPresenter mPresenter;
   
   @BindView(R2.id.edt_search)
   EditText edtSearch;
@@ -52,7 +52,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     ButterKnife.bind(activity);
     
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
-    mPresenter = new RecyclerViewPresenter<>();
+    mPresenter = new RecyclerViewPresenter();
     mPresenter.attachView(mvpView);
     
     activity.showHintSearch();
@@ -81,10 +81,17 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     
   }
   
-  // v[0] = 0 or 1 ,
+  // 0 : pbLoadingSearch (Progress Indicator)
+  // 1 : rvContacts      (RecyclerView Contacts)
+  // 2 : tvErrorSearch   (TextView for Errors)
   private void changeVisibility(Integer... visibility){
+    // 0 : pbLoadingSearch
     activity.setVisibility(pbLoadingSearch, visibility[0]);
+    
+    // 1 : rvContacts
     activity.setVisibility(rvContacts, visibility[1]);
+    
+    // 2 : tvErrorSearch
     activity.setVisibility(tvErrorSearch, visibility[2]);
   }
   

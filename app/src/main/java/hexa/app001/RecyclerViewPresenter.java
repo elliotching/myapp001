@@ -8,38 +8,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class RecyclerViewPresenter<T extends RecyclerViewMvpView> {
-  
-  private final String TAG = this.getClass().getSimpleName();
-  private T mMvpView;
-  private CompositeDisposable mCompositeDisposable;
-  private NetworkHelper mNetwork;
-  
+public class RecyclerViewPresenter extends BasePresenter<RecyclerViewMvpView> {
   
   public RecyclerViewPresenter() {
-    mCompositeDisposable = new CompositeDisposable();
-    mNetwork = new NetworkHelper();
-  }
-  
-  public void attachView(T mvpView) {
-    mMvpView = mvpView;
-  }
-  
-  public void detachView() {
-    mMvpView = null;
-  }
-  
-  
-  public boolean isViewAttached() {
-    return mMvpView != null;
-  }
-  
-  public T getMvpView() {
-    return mMvpView;
-  }
-  
-  public void checkViewAttached() {
-    if (!isViewAttached()) throw new MvpViewNotAttachedException();
+    super();
   }
   
   public NetworkHelper getmNetwork() {
