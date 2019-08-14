@@ -42,10 +42,6 @@ public class RecyclerViewPresenter<T extends RecyclerViewMvpView> {
     if (!isViewAttached()) throw new MvpViewNotAttachedException();
   }
   
-  public void search(String currentText) {
-    Log.d(TAG, "search: "+currentText);
-  }
-  
   public NetworkHelper getmNetwork() {
     if(mNetwork == null){
       mNetwork = new NetworkHelper();

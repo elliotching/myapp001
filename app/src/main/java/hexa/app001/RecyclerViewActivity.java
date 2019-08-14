@@ -54,20 +54,19 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
     mPresenter = new RecyclerViewPresenter<>();
     mPresenter.attachView(mvpView);
-    
+    activity.showHintSearch();
     edtSearch.addTextChangedListener(new TextWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+      }
   
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if(charSequence.length() == 0){
-          changeVisibility(0,0,1);
           activity.showHintSearch();
         }
         else {
           activity.showProgressBar();
-          mPresenter.search(charSequence.toString());
           mPresenter.loadMovies(charSequence.toString(), Res.API_KEY);
         }
       }
@@ -80,17 +79,18 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     
   }
   
+  // v[0] = 0 or 1 ,
   private void changeVisibility(Integer... visibility){
-    for(int i = 0; i < visibility.length; i++) {
+    for(int i = 0; i < visibility.length; i++) { // 0 - 2
       switch(i){
         case 0:
-          activity.setVisibility(pbLoadingSearch, i);
+          activity.setVisibility(pbLoadingSearch, visibility[0]);
           break;
         case 1:
-          activity.setVisibility(rvContacts, i);
+          activity.setVisibility(rvContacts, visibility[1]);
           break;
         case 2:
-          activity.setVisibility(tvErrorSearch, i);
+          activity.setVisibility(tvErrorSearch, visibility[2]);
           break;
         default:
           break;
@@ -112,16 +112,13 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   }
   
   private void showHintSearch() {
-    tvErrorSearch.setVisibility(View.VISIBLE);
+    changeVisibility(0,0,1);
     tvErrorSearch.setText(R.string.hint_msg_search);
   }
   
   
   private void showProgressBar(){
     changeVisibility(1,0,0);
-//    pbLoadingSearch.setVisibility(View.VISIBLE);
-//    rvContacts.setVisibility(View.GONE);
-//    tvErrorSearch.setVisibility(View.GONE);
   }
   
   @Override
@@ -142,9 +139,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   @Override
   public void populateRecyclerView(List<Movie> movies) {
     changeVisibility(0,1,0);
-//    pbLoadingSearch.setVisibility(View.GONE);
-//    rvContacts.setVisibility(View.VISIBLE);
-//    tvErrorSearch.setVisibility(View.GONE);
     
     ArrayList<Movie> amovies = new ArrayList<>(movies);
     MovieAdapter movieAdapter = new MovieAdapter(activity, amovies);
@@ -155,9 +149,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   @Override
   public void showError(String error) {
     changeVisibility(0,0,1);
-//    rvContacts.setVisibility(View.GONE);
-//    pbLoadingSearch.setVisibility(View.GONE);
-//    tvErrorSearch.setVisibility(View.VISIBLE);
     
     error = Res.get(context, R.string.error_text) + error;
     
