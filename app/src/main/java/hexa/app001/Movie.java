@@ -80,6 +80,7 @@ public class Movie implements Parcelable {
   public String getSubtitle(){
     return getYear()+"\n"+getType();
   }
+  
   public String getDescription(){
     return getTitle()+" is a "+getType()+" produced in "+getYear();
   }

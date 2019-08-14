@@ -19,8 +19,7 @@ import java.util.ArrayList;
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
-public class MovieAdapter extends
-    RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
   
   private ArrayList<Movie> mMovies;
   private AppCompatActivity activity;

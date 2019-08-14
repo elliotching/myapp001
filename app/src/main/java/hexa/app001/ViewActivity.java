@@ -17,7 +17,7 @@ public class ViewActivity extends AppCompatActivity {
   private final String TAG = this.getClass().getSimpleName();
   private ViewActivity activity = this;
   private Context context = this;
-  private ViewPresenter mPresenter;
+  
   private Movie movie;
   @BindView(R2.id.tv_title)
   TextView tvTitle;
