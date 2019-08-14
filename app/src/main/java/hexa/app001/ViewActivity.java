@@ -35,6 +35,9 @@ public class ViewActivity extends AppCompatActivity {
     Movie m = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
     if (activity.getSupportActionBar() != null) {
       activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      m = null;
+      assert m != null;
+      activity.getSupportActionBar().setTitle(m.getTitle());
     }
   }
   

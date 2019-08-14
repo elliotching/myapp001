@@ -44,7 +44,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
   
   @BindView(R2.id.pb_loading_search)
   ProgressBar pbLoadingSearch;
-//
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
