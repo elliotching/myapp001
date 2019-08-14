@@ -1,4 +1,4 @@
-package hexa.app001;
+package hexa.app001.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
+
+import hexa.app001.data.Movie;
+import hexa.app001.data.NetworkHelper;
+import hexa.app001.R;
+import hexa.app001.data.Res;
+import hexa.app001.ui.ViewActivity;
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views

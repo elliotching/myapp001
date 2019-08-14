@@ -1,8 +1,10 @@
-package hexa.app001;
+package hexa.app001.data;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+
+import hexa.app001.data.Movie;
 
 public class SearchResponse {
   

@@ -1,10 +1,11 @@
-package hexa.app001;
+package hexa.app001.data;
 
 import android.widget.ImageView;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.squareup.picasso.Picasso;
 
+import hexa.app001.R;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

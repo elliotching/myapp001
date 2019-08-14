@@ -1,4 +1,4 @@
-package hexa.app001;
+package hexa.app001.data;
 
 import android.content.Context;
 import android.content.res.Resources;

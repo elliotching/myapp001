@@ -1,4 +1,4 @@
-package hexa.app001;
+package hexa.app001.ui;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hexa.app001.data.Movie;
+import hexa.app001.adapter.MovieAdapter;
+import hexa.app001.R;
+import hexa.app001.R2;
+import hexa.app001.data.Res;
 
 public class RecyclerViewActivity extends AppCompatActivity implements RecyclerViewMvpView{
   
@@ -81,6 +86,12 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     
   }
   
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mPresenter.detachView();
+  }
+  
   // 0 : pbLoadingSearch (Progress Indicator)
   // 1 : rvContacts      (RecyclerView Contacts)
   // 2 : tvErrorSearch   (TextView for Errors)
@@ -113,24 +124,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements RecyclerV
     tvErrorSearch.setText(R.string.hint_msg_search);
   }
   
-  
   private void showProgressBar(){
     changeVisibility(1,0,0);
-  }
-  
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    if (requestCode == Res.REQUEST_CODE_SELECT_CONTACT_REQUEST) {
-      if (resultCode == RESULT_OK) {
-      
-      }
-    }
-    super.onActivityResult(requestCode, resultCode, data);
-  }
-  
-  @Override
-  public void onRetrievedSuccess() {
-  
   }
   
   @Override

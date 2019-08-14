@@ -7,7 +7,7 @@
 
     <!--tools:replace="android:name"-->
     <application
-        android:name=".MyDebugApplication"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
@@ -15,14 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RecyclerViewActivity">
+        <activity android:name=".ui.RecyclerViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewActivity"></activity>
+        <activity android:name=".ui.ViewActivity"></activity>
         <activity android:name=".RealmTest.RealmActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->

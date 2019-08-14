@@ -1,7 +1,8 @@
-package hexa.app001;
+package hexa.app001.ui;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import hexa.app001.data.Movie;
 
 public interface RecyclerViewMvpView {
   

@@ -1,10 +1,9 @@
-package hexa.app001;
+package hexa.app001.ui;
 
 
-import android.util.Log;
-
+import hexa.app001.data.RetrofitApi;
+import hexa.app001.data.SearchResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -14,25 +13,11 @@ public class RecyclerViewPresenter extends BasePresenter<RecyclerViewMvpView> {
     super();
   }
   
-  public NetworkHelper getmNetwork() {
-    if(mNetwork == null){
-      mNetwork = new NetworkHelper();
-    }
-    return mNetwork;
-  }
-  
-  public static class MvpViewNotAttachedException extends RuntimeException {
-    public MvpViewNotAttachedException() {
-      super("Please call Presenter.attachView(BaseMvpView) before" +
-          " requesting data to the Presenter");
-    }
-  }
-  
   public void loadMovies(String key, String api) {
     // retrieve request from API http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
     checkViewAttached();
-    mCompositeDisposable.add(
-        mNetwork
+    getCompositeDisposable().add(
+        getNetwork()
             .getRetrofit()
             .create(RetrofitApi.class)
             .getMovies(key, api)

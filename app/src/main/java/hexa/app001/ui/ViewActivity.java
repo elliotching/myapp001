@@ -1,19 +1,24 @@
-package hexa.app001;
+package hexa.app001.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hexa.app001.data.Movie;
+import hexa.app001.data.NetworkHelper;
+import hexa.app001.R;
+import hexa.app001.R2;
+import hexa.app001.data.Res;
 
-public class ViewActivity extends AppCompatActivity {
+public class ViewActivity extends BaseActivity {
   private final String TAG = this.getClass().getSimpleName();
   private ViewActivity activity = this;
   private Context context = this;
@@ -31,9 +36,7 @@ public class ViewActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_view);
-    ButterKnife.bind(activity);
-    Intent i = this.getIntent();
+    Intent i = startBase(R.layout.activity_recycler_view, activity);
     movie = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
     if (activity.getSupportActionBar() != null) {
       activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,14 +47,6 @@ public class ViewActivity extends AppCompatActivity {
     activity.displayMovie();
   }
   
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == android.R.id.home) {
-      activity.finish();
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
-  }
   
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
