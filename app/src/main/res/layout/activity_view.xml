@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">-->
 
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
             <ImageView
                 android:id="@+id/iv_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="fitCenter"
+                android:background="@color/blue"
                 app:layout_constraintBottom_toTopOf="@id/tv_title"
                 app:layout_constraintTop_toTopOf="parent"/>
             <!--app:layout_constraintBottom_toTopOf="@id/guideline2"-->
@@ -27,6 +28,7 @@
                 android:layout_height="0dp"
                 android:padding="20dp"
                 android:textColor="@color/red"
+                android:background="@color/orange"
                 android:textSize="@dimen/large_sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/iv_image"
@@ -40,6 +42,7 @@
                 android:padding="20dp"
                 android:textColor="@color/red"
                 android:textSize="@dimen/mid_sp"
+                android:background="@color/blue"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
                 app:layout_constraintBottom_toTopOf="@id/tv_description"/>
 
@@ -49,6 +52,8 @@
                 android:layout_height="0dp"
                 android:padding="20dp"
                 android:textColor="@color/blue"
+
+                android:background="@color/red"
                 android:textSize="@dimen/smid_sp"
                 app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -60,6 +65,6 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="500dp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
