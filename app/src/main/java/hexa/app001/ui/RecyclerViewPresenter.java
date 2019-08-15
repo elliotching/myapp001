@@ -7,6 +7,7 @@ import hexa.app001.daggerinjection.DaggerNetworkHelperComponent;
 import hexa.app001.daggerinjection.NetworkHelperComponent;
 import hexa.app001.data.RetrofitApi;
 import hexa.app001.data.SearchResponse;
+import hexa.app001.ui.base.BasePresenter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;

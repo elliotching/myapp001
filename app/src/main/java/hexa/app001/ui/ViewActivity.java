@@ -12,6 +12,7 @@ import hexa.app001.data.NetworkHelper;
 import hexa.app001.R;
 import hexa.app001.R2;
 import hexa.app001.data.Res;
+import hexa.app001.ui.base.BaseActivity;
 
 public class ViewActivity extends BaseActivity {
   private final String TAG = this.getClass().getSimpleName();
@@ -35,20 +36,6 @@ public class ViewActivity extends BaseActivity {
     movie = i.getParcelableExtra(Res.INTENT_EXTRA_KEY_MOVIE);
     viewActivity.setActionBarTitle(movie);
     viewActivity.displayMovie();
-  }
-  
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    // Check which request we're responding to
-    if (requestCode == Res.REQUEST_CODE_EDIT_CONTACT_REQUEST) {
-      if (resultCode == RESULT_OK) {
-        long editingId = data.getLongExtra(Res.INTENT_EXTRA_EDITED_CONTACT_ID, Res.DEFAULT_FALSE);
-        if (editingId != Res.DEFAULT_FALSE) {
-        
-        }
-      }
-    }
   }
   
   private void displayMovie(){

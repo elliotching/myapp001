@@ -26,6 +26,7 @@ import hexa.app001.adapter.MovieAdapter;
 import hexa.app001.R;
 import hexa.app001.R2;
 import hexa.app001.data.Res;
+import hexa.app001.ui.base.BaseActivity;
 
 public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMvpView{
   
@@ -142,9 +143,7 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
   @Override
   public void showError(String error) {
     changeVisibility(0,0,1); // pb:0 , rv:0 , tv:1
-    
     error = Res.get(context, R.string.error_text) + error;
-    
     tvErrorSearch.setText(error);
   }
 }

@@ -1,4 +1,4 @@
-package hexa.app001.ui;
+package hexa.app001.ui.base;
 
 import android.content.Intent;
 import android.os.Bundle;

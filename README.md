@@ -1,10 +1,11 @@
 # myapp001
-## Task 2
+## Task 3
 
-### Realm Impl
-Data is prepopulated into Realm if realm table Movie is empty
+### Dagger 2 Injection used on:
+1. NetworkHelperComponent
+2. RecyclerViewPresenterComponent
 
-### PrimaryKey (int)
+### Organized according 
 All init progress using integer increment for the id Primary Key.
 
 ### AsyncTask w/ realm.executeTransaction

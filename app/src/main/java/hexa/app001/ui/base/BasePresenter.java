@@ -1,8 +1,9 @@
-package hexa.app001.ui;
+package hexa.app001.ui.base;
 
 import javax.inject.Inject;
 
 import hexa.app001.data.NetworkHelper;
+import hexa.app001.ui.RecyclerViewPresenter;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BasePresenter<T> {
