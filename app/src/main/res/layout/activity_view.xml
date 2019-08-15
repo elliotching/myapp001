@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">-->
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,56 +17,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@id/guideline2"
+                app:layout_constraintBottom_toTopOf="@id/tv_title"
                 app:layout_constraintTop_toTopOf="parent"/>
+            <!--app:layout_constraintBottom_toTopOf="@id/guideline2"-->
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:padding="20dp"
                 android:textColor="@color/red"
                 android:textSize="@dimen/large_sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/guideline2"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_image"
+                app:layout_constraintBottom_toTopOf="@id/tv_subtitle"/>
 
 
             <TextView
                 android:id="@+id/tv_subtitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:padding="20dp"
                 android:textColor="@color/red"
                 android:textSize="@dimen/mid_sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintBottom_toTopOf="@id/tv_description"/>
 
             <TextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:padding="20dp"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/smid_sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
+                app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".7" />
+                app:layout_constraintGuide_begin="500dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
-
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--android:id="@+id/fab_edit"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--android:src="@drawable/ic_edit" />-->
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+</ScrollView>
