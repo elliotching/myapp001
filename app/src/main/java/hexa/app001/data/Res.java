@@ -23,7 +23,7 @@ public class Res {
   public static final String API_KEY = "dc16346";
   public static final String INTENT_EXTRA_KEY_MOVIE = "key_movie";
   public static final float IMAGE_WIDTH_FULL = 2048.0f;
-  public static final float IMAGE_WIDTH_SMALL = 200.0f;
+  public static final float IMAGE_WIDTH_SMALL = 320.0f;
   
   public static final String get(Context context, int ResourceID) {
     return context.getResources().getString(ResourceID);
