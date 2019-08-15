@@ -5,16 +5,18 @@
 1. NetworkHelperComponent
 2. RecyclerViewPresenterComponent
 
-### Organized according 
-All init progress using integer increment for the id Primary Key.
+### Organized according with MVP
+1. Recycler View Activity, MVP-View, Presenter.
 
-### AsyncTask w/ realm.executeTransaction
-All realm operation has been executed in background thread using AsyncTask.
-Inside background thread, realm operation been done using realm.executeTransaction()
+### ViewBinding with ButterKnife
+1. binded views with ButterKnife
+
+### RxJava 2 and Retrofit
+- used to retrieve remote API in JSON results
+
+### Jackson
+- convert JSON results and mapped into recpective fields, (eg. SearchResponse.java)
+- embeded with RxJava adapter
 
 #### Picasso
-checked before saved on the image link, created a default link if empty link
-On image link EditText focus lost, a default image included immediately ("//picsum.photos/id/0/5616/3744") into text view if empty (library:Picasso doesn't allowed empty string)
-
-
-###### P/S: currently all pre-defined images for each items are same
+- read URL from JSON to retrieve images into UI
