@@ -2,7 +2,6 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -18,7 +17,7 @@
             android:layout_height="0dp"
             android:scaleType="fitCenter"
             android:background="@color/blue"
-            app:layout_constraintBottom_toTopOf="@id/tv_title"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="parent"/>
         <!--app:layout_constraintBottom_toTopOf="@id/guideline2"-->
 
@@ -59,10 +58,10 @@
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".7" />
+            app:layout_constraintGuide_percent=".8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
