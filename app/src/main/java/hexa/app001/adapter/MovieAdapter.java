@@ -2,6 +2,7 @@ package hexa.app001.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +22,15 @@ import hexa.app001.R;
 import hexa.app001.data.Res;
 import hexa.app001.ui.ViewActivity;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
   
   private ArrayList<Movie> mMovies;
   private AppCompatActivity activity;
+  private Context context;
   
   // Pass in the contact array into the constructor
   public MovieAdapter(AppCompatActivity activity, ArrayList<Movie> movies) {
@@ -37,7 +41,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    Context context = parent.getContext();
+    context = parent.getContext();
     
     LayoutInflater inflater = LayoutInflater.from(context);
     
@@ -54,15 +58,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     // Get the data model based on position
     Movie movie = mMovies.get(position);
     
-    TextView titleTextView = holder.tvTitle;
+    TextView tvTitle = holder.tvTitle;
     ImageView img = holder.imgPoster;
-    TextView subtitleTextView = holder.tvSubtitle;
-    TextView descriptionTextView = holder.tvDescription;
+    TextView tvSubtitle = holder.tvSubtitle;
+    TextView tvDescription = holder.tvDescription;
     
-    titleTextView.setText(movie.getTitle());
-    NetworkHelper.setImageUrl(img, movie.getPoster(), Res.IMAGE_SIZE_SMALL);
-    subtitleTextView.setText(movie.getSubtitle());
-    descriptionTextView.setText(movie.getDescription());
+    NetworkHelper.setImageUrl(img, movie.getPoster(), Res.IMAGE_WIDTH_SMALL);
+    tvTitle.setText(movie.getTitle());
+    tvSubtitle.setText(movie.getSubtitle());
+    tvDescription.setText(movie.getDescription());
+    
+//    img.post(new Runnable() {
+//      @Override
+//      public void run() {
+//        int width = img.getMeasuredWidth();
+//        Log.d(movie.getTitle(), "onBindViewHolder: layoutParams.width = "+img.getMeasuredWidth());
+//        Log.d(movie.getTitle(),"imageview width:" + img.getWidth() + " height:" + img.getHeight());
+//        img.getLayoutParams().height = (int) (width / 9.0 * 16.0);
+////        img.requestLayout();
+//
+//      }
+//    });
   }
   
   @Override
@@ -100,6 +116,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         intent.putExtra(Res.INTENT_EXTRA_KEY_MOVIE, movie);
         activity.startActivityForResult(intent, Res.REQUEST_CODE_SELECT_CONTACT_REQUEST);
       }
+  
+      ViewGroup.LayoutParams layoutParams = imgPoster.getLayoutParams();
+      Log.d(TAG, "onBindViewHolder: layoutParams.width = "+layoutParams.width);
+      Log.d(TAG, "onBindViewHolder: layoutParams.height = "+layoutParams.height);
     }
   }
 }

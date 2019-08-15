@@ -3,7 +3,6 @@ package hexa.app001.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,7 +55,7 @@ public class ViewActivity extends BaseActivity {
     tvTitle.setText(movie.getTitle());
     tvSubtitle.setText(movie.getSubtitle());
     tvDescription.setText(movie.getDescription());
-    NetworkHelper.setImageUrl(ivImage, movie.getPoster(), Res.IMAGE_SIZE_FULL);
+    NetworkHelper.setImageUrl(ivImage, movie.getPoster(), Res.IMAGE_WIDTH_FULL);
   }
 }
 

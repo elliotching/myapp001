@@ -7,6 +7,9 @@
     <dimen name="margin_topbottom_size">30dp</dimen>
     <dimen name="zero">0dp</dimen>
     <dimen name="tiny">10dp</dimen>
+    <dimen name="large_sp">24sp</dimen>
+    <dimen name="mid_sp">18sp</dimen>
+    <dimen name="smid_sp">16sp</dimen>
     <item name="half_scale" type="dimen" format="float">0.5</item>
     <item name="small_scale" type="dimen" format="float">0.1</item>
 </resources>
