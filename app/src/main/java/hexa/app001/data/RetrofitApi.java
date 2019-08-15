@@ -16,14 +16,6 @@ public interface RetrofitApi {
       @Query("apikey") String api
   );
   
-  
-  
-//  @GET("http://www.omdbapi.com/")
-//  Observable<Movie> getMovies(
-//      @Query("s") String s_key,
-//      @Query("apikey") String api
-//  );
-  
   @GET("http://www.omdbapi.com/")
   Call<List<Movie>> callMovies(
       @Query("s") String s_key,

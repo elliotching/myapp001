@@ -5,6 +5,8 @@ import android.widget.ImageView;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import hexa.app001.R;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,6 +19,7 @@ public class NetworkHelper {
     private OkHttpClient mOkHttpClient;
     private Retrofit mRetrofit;
     
+    @Inject
     public NetworkHelper() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.level(HttpLoggingInterceptor.Level.BODY);

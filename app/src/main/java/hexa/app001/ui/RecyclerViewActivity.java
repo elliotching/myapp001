@@ -1,13 +1,10 @@
 package hexa.app001.ui;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,7 +31,7 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
   
   private static final String TAG = "RecyclerViewActivity";
   public final Context context = this;
-  public final RecyclerViewActivity activity = this;
+  public final RecyclerViewActivity mActivity = this;
   public final RecyclerViewMvpView mvpView = this;
   
   @Inject
@@ -58,16 +55,15 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    startBase(R.layout.activity_recycler_view, activity);
+    startBase(R.layout.activity_recycler_view, mActivity);
     
     // request from http://www.omdbapi.com/?i=tt3896198&apikey=dc16346
     RecyclerViewPresenterComponent component = DaggerRecyclerViewPresenterComponent.create();
     component.inject(this);
     
-    //mPresenter = new RecyclerViewPresenter();
     mPresenter.attachView(mvpView);
     
-    activity.showHintSearch();
+    mActivity.showHintSearch();
     
     edtSearch.addTextChangedListener(new TextWatcher() {
       @Override
@@ -77,10 +73,10 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
       @Override
       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if(charSequence.length() == 0){
-          activity.showHintSearch();
+          mActivity.showHintSearch();
         }
         else {
-          activity.showProgressBar();
+          mActivity.showProgressBar();
           mPresenter.loadMovies(charSequence.toString(), Res.API_KEY);
         }
       }
@@ -104,13 +100,13 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
   // 2 : tvErrorSearch   (TextView for Errors)
   private void changeVisibility(Integer... visibility){
     // 0 : pbLoadingSearch
-    activity.setVisibility(pbLoadingSearch, visibility[0]);
+    mActivity.setVisibility(pbLoadingSearch, visibility[0]);
     
     // 1 : rvContacts
-    activity.setVisibility(rvContacts, visibility[1]);
+    mActivity.setVisibility(rvContacts, visibility[1]);
     
     // 2 : tvErrorSearch
-    activity.setVisibility(tvErrorSearch, visibility[2]);
+    mActivity.setVisibility(tvErrorSearch, visibility[2]);
   }
   
   private void setVisibility(View v, int i) {
@@ -121,33 +117,31 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
       case 1://true
         v.setVisibility(View.VISIBLE);
         break;
-      default:
-    
     }
   }
   
   private void showHintSearch() {
-    changeVisibility(0,0,1);
+    changeVisibility(0,0,1); // pb:0 , rv:0 , tv:1
     tvErrorSearch.setText(R.string.hint_msg_search);
   }
   
   private void showProgressBar(){
-    changeVisibility(1,0,0);
+    changeVisibility(1,0,0); // pb:1 , rv:0 , tv:0
   }
   
   @Override
   public void populateRecyclerView(List<Movie> movies) {
-    changeVisibility(0,1,0);
+    changeVisibility(0,1,0);  // pb:0 , rv:1 , tv:0
     
     ArrayList<Movie> amovies = new ArrayList<>(movies);
-    MovieAdapter movieAdapter = new MovieAdapter(activity, amovies);
+    MovieAdapter movieAdapter = new MovieAdapter(mActivity, amovies);
     rvContacts.setAdapter(movieAdapter);
     rvContacts.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
   }
   
   @Override
   public void showError(String error) {
-    changeVisibility(0,0,1);
+    changeVisibility(0,0,1); // pb:0 , rv:0 , tv:1
     
     error = Res.get(context, R.string.error_text) + error;
     

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-import hexa.app001.data.Movie;
-
 public class SearchResponse {
   
   @JsonProperty("Search")

@@ -6,8 +6,6 @@ import hexa.app001.ui.RecyclerViewPresenter;
 
 @Component
 public interface RecyclerViewPresenterComponent {
-
-//  RecyclerViewPresenter getPresenter();
   
   void inject(RecyclerViewActivity rvActivity);
 }

@@ -29,10 +29,6 @@ public class Res {
     return context.getResources().getString(ResourceID);
   }
   
-//  public static final String get(int ResourceID) {
-//    return Resources.getSystem().getString(ResourceID);
-//  }
-  
   public static final RealmConfiguration realmConfig() {
     RealmConfiguration config = new RealmConfiguration
         .Builder()

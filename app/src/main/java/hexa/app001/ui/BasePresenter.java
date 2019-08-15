@@ -1,24 +1,21 @@
 package hexa.app001.ui;
 
+import javax.inject.Inject;
+
 import hexa.app001.data.NetworkHelper;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BasePresenter<T> {
   private T mMvpView;
   private CompositeDisposable mCompositeDisposable;
-  private NetworkHelper mNetwork;
+  @Inject
+  NetworkHelper mNetwork;
   
   public BasePresenter() {
-//    CarComponent component = DaggerCarComponent.create();
-//    component.inject(this);
     mCompositeDisposable = new CompositeDisposable();
-    mNetwork = new NetworkHelper();
   }
   
   public NetworkHelper getNetwork() {
-    if(mNetwork == null){
-      mNetwork = new NetworkHelper();
-    }
     return mNetwork;
   }
   

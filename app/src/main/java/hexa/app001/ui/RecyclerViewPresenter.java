@@ -3,6 +3,8 @@ package hexa.app001.ui;
 
 import javax.inject.Inject;
 
+import hexa.app001.daggerinjection.DaggerNetworkHelperComponent;
+import hexa.app001.daggerinjection.NetworkHelperComponent;
 import hexa.app001.data.RetrofitApi;
 import hexa.app001.data.SearchResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,6 +16,8 @@ public class RecyclerViewPresenter extends BasePresenter<RecyclerViewMvpView> {
   @Inject
   public RecyclerViewPresenter() {
     super();
+    NetworkHelperComponent component = DaggerNetworkHelperComponent.create();
+    component.inject(this);
   }
   
   public void loadMovies(String key, String api) {
