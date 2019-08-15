@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="500dp" />
+            app:layout_constraintGuide_percent=".7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
