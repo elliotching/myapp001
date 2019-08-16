@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +137,18 @@ public class RecyclerViewActivity extends BaseActivity implements RecyclerViewMv
     changeVisibility(0,1,0);  // pb:0 , rv:1 , tv:0
     
     ArrayList<Movie> amovies = new ArrayList<>(movies);
-    MovieAdapter movieAdapter = new MovieAdapter(mActivity, amovies);
+    MovieAdapter movieAdapter = new MovieAdapter(amovies, new MovieAdapter.AdapterCallback() {
+      @Override
+      public void onClickView(View clickedView) {
+        int position = rvContacts.getChildLayoutPosition(clickedView); // gets item position
+        if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+          Movie movie = amovies.get(position);
+          Intent intent = new Intent(context, ViewActivity.class);
+          intent.putExtra(Res.INTENT_EXTRA_KEY_MOVIE, movie);
+          mActivity.startActivityForResult(intent, Res.REQUEST_CODE_SELECT_CONTACT_REQUEST);
+        }
+      }
+    });
     rvContacts.setAdapter(movieAdapter);
     rvContacts.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
   }
