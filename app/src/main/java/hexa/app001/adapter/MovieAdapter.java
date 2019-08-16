@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -48,13 +49,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     // Return a new holder instance
     ViewHolder viewHolder = new ViewHolder(movieView);
     
-    movieView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        adapterCallback.onClickView(view);
-      }
-    });
-    
     return viewHolder;
   }
   
@@ -67,11 +61,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     ImageView img = holder.imgPoster;
     TextView tvSubtitle = holder.tvSubtitle;
     TextView tvDescription = holder.tvDescription;
+    CardView cardView = holder.cardView;
     
     NetworkHelper.setImageUrl(img, movie.getPoster(), Res.IMAGE_WIDTH_SMALL);
     tvTitle.setText(movie.getTitle());
     tvSubtitle.setText(movie.getSubtitle());
     tvDescription.setText(movie.getDescription());
+    
+    cardView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        adapterCallback.onClickView(view);
+      }
+    });
   }
   
   @Override
@@ -84,10 +86,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     ImageView imgPoster;
     TextView tvSubtitle;
     TextView tvDescription;
+    CardView cardView;
     
     public ViewHolder(View itemView) {
       super(itemView);
       
+      cardView = itemView.findViewById(R.id.card_view);
       tvTitle = itemView.findViewById(R.id.tv_title);
       imgPoster = itemView.findViewById(R.id.image_view);
       tvSubtitle = itemView.findViewById(R.id.tv_subtitle);
